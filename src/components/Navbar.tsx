@@ -66,7 +66,7 @@ export function Navbar() {
             ))}
             <div className="ml-2 flex items-center gap-2">
               <a
-                href="/Sofien_Essghaier_CV.pdf"
+                href="/CV_Sofien_Sghaier.pdf"
                 download
                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-muted)] shadow-[0_0_0_1px_var(--color-border)] transition hover:text-[var(--color-fg)] hover:shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-accent-2)_35%,transparent)]"
               >
@@ -124,7 +124,7 @@ export function Navbar() {
                 ))}
                 <div className="pt-2">
                   <a
-                    href="/Sofien_Essghaier_CV.pdf"
+                    href="/CV_Sofien_Sghaier.pdf"
                     download
                     className="inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-[var(--color-fg)] shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-accent)_35%,transparent)] transition hover:shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-accent)_55%,transparent),0_0_26px_-8px_color-mix(in_oklab,var(--color-accent)_70%,transparent)]"
                   >

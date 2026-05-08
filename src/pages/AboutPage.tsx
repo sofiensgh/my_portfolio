@@ -22,7 +22,7 @@ export function AboutPage() {
                       <img
                         src={brand.avatar}
                         alt={brand.name}
-                        className="h-48 w-48 rounded-xl object-cover"
+                        className="h-48 w-48 rounded-xl object-contain"
                       />
                     </div>
                   </div>
