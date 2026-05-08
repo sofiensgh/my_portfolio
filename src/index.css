@@ -6,14 +6,49 @@
   --font-display: "Poppins", var(--font-sans);
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+}
 
+:root {
+  /* Dark mode (default) */
   --color-bg: #0a0a0a;
   --color-fg: #f5f5f5;
+  --color-bg-secondary: #1a1a1a;
   --color-muted: #a0a0a0;
   --color-muted-2: #71717a;
   --color-border: rgba(255, 255, 255, 0.1);
   --color-accent: #06b6d4;
   --color-accent-2: #3b82f6;
+  --color-accent-light: #22d3ee;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --glass-bg: rgba(7, 7, 7, 0.62);
+  --aurora-accent: rgba(6, 182, 212, 0.18);
+  --aurora-accent-2: rgba(59, 130, 246, 0.16);
+  --scanline-color: rgba(255, 255, 255, 0.03);
+  --noise-opacity: 0.22;
+  --shadow-color: rgba(0, 0, 0, 0.9);
+}
+
+html.light {
+  --color-bg: #f8f9fa;
+  --color-fg: #1a1a1a;
+  --color-bg-secondary: #f0f1f3;
+  --color-muted: #6b7280;
+  --color-muted-2: #9ca3af;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-accent: #0891b2;
+  --color-accent-2: #2563eb;
+  --color-accent-light: #06b6d4;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --glass-bg: rgba(248, 249, 250, 0.7);
+  --aurora-accent: rgba(8, 145, 178, 0.08);
+  --aurora-accent-2: rgba(37, 99, 235, 0.06);
+  --scanline-color: rgba(0, 0, 0, 0.02);
+  --noise-opacity: 0.08;
+  --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
 html {
@@ -21,19 +56,20 @@ html {
 }
 
 body {
-  @apply bg-[var(--color-bg)] text-[var(--color-fg)] antialiased;
+  @apply bg-[var(--color-bg)] text-[var(--color-fg)] antialiased transition-colors duration-300;
   font-family: var(--font-sans);
+  color-scheme: light dark;
 }
 
 ::selection {
   background: color-mix(in oklab, var(--color-accent) 25%, transparent);
 }
 
-/* Futuristic background grid + aurora + subtle scanlines/noise */
+/* Adaptive background grid + aurora + subtle scanlines/noise */
 .bg-grid {
   background-image:
     radial-gradient(transparent 1px, var(--color-bg) 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06), transparent 40%);
+    linear-gradient(to bottom, var(--scanline-color) 0%, transparent 40%);
   background-size: 28px 28px, 100% 100%;
   background-position: center, top;
 }
@@ -46,17 +82,17 @@ body {
   background:
     radial-gradient(
       1100px 620px at 40% -10%,
-      color-mix(in oklab, var(--color-accent) 18%, transparent),
+      var(--aurora-accent),
       transparent 60%
     ),
     radial-gradient(
       980px 560px at 110% 10%,
-      color-mix(in oklab, var(--color-accent-2) 16%, transparent),
+      var(--aurora-accent-2),
       transparent 62%
     ),
     radial-gradient(
       900px 520px at 10% 120%,
-      color-mix(in oklab, var(--color-accent) 10%, transparent),
+      var(--aurora-accent),
       transparent 60%
     );
   filter: blur(18px) saturate(1.1);
@@ -72,16 +108,16 @@ body {
   background-image:
     repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.03) 0px,
-      rgba(255, 255, 255, 0.03) 1px,
+      var(--scanline-color),
+      var(--scanline-color) 1px,
       transparent 2px,
       transparent 6px
     ),
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(circle at 30% 20%, var(--scanline-color), transparent 55%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
   background-size: auto, auto, 160px 160px;
   mix-blend-mode: overlay;
-  opacity: 0.22;
+  opacity: var(--noise-opacity);
 }
 
 @keyframes aurora {
@@ -94,9 +130,14 @@ body {
 }
 
 .glass {
-  background: color-mix(in oklab, #070707 62%, transparent);
+  background: var(--glass-bg);
   border: 1px solid var(--color-border);
   backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: color-mix(in oklab, var(--color-accent) 50%, var(--color-border));
 }
 
 .text-glow {
@@ -124,4 +165,19 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  @apply transition-colors duration-300;
+}
+
+html.dark * {
+  /* Dark mode specific transitions */
+  @apply duration-300;
+}
+
+html.light * {
+  /* Light mode specific transitions */
+  @apply duration-300;
 }

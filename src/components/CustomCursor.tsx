@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
+function getIsTouch() {
+  return 'ontouchstart' in window || (navigator.maxTouchPoints ?? 0) > 0
+}
+
 export function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 })
-  const [enabled, setEnabled] = useState(false)
-
-  useEffect(() => {
-    const isTouch =
-      'ontouchstart' in window || (navigator.maxTouchPoints ?? 0) > 0
-    setEnabled(!isTouch)
-  }, [])
+  const [enabled] = useState(() => !getIsTouch())
 
   useEffect(() => {
     if (!enabled) return
